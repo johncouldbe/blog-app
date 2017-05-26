@@ -4,14 +4,14 @@ const blogPostSchema = mongoose.Schema({
   title: {type: String, required: true},
   content: {type: String, required: true},
   author: {
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true}
+    firstName: String,
+    lastName: String
   },
   created: String
 });
 
-blogPostSchema.virtual('nameString', function(){
-  return `${this.author.firstname} ${this.author.lastname}`;
+blogPostSchema.virtual('nameString').get(function(){
+  return `${this.author.firstName} ${this.author.lastName}`
 });
 
 blogPostSchema.methods.apiRepr = function(){

@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
     if(!(field in req.body)){
       const message = `Please enter the field "${field}".`;
       console.log(message);
-      res.status(500).send(message);
+      res.status(400).send(message);
     }
   }
 
@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
     if(!(field in req.body.author)){
       const message = `Please enter the field "${field}" in author.`;
       console.log(message);
-      res.status(500).send(message);
+      res.status(400).send(message);
     }
   }
 
@@ -73,7 +73,7 @@ router.put('/:id', (req, res) => {
   if(!(req.body.id && req.params.id && req.body.id == req.params.id)){
     const message = `Request path id (${req.params.id}) and request body id (${req.body.id})must be matching.`;
     console.log(message);
-    res.send(message).status(500);
+    res.send(message).status(400);
   }
 
   const toUpdate = {};
@@ -89,7 +89,7 @@ router.put('/:id', (req, res) => {
           if(!(field in req.body.author)){
             const message = `Please enter the field "${field}" in author.`;
             console.log(message);
-            res.status(500).send(message);
+            res.status(400).send(message);
           }
         }
       }
@@ -101,7 +101,7 @@ router.put('/:id', (req, res) => {
   BlogPost
   .findByIdAndUpdate(req.params.id, {$set: toUpdate})
   .exec()
-  .then(blogPost => res.status(200).end())
+  .then(blogPost => res.status(201).end())
   .catch(err => {
     console.log(err);
     res.status(500).send("Internal server Error.");
