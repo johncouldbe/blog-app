@@ -1,4 +1,11 @@
 language: node_js
 node_js: node
 services:
-  - mongodb
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: AllriS5+qnl3/yEXOiYYTiwcHeuWrdtJ1GxsUQZmzx7y4yZttJhr/AzayhmmJoXajBT6/cPpaQy0rEMLdtAXj8U4sqjONp2uGB/JVCE8pc7kLKDuk5czQASpKihCsxuC1lmFQe75T80ePUOQnkvDbiaEOTMWd4AjyMYc7PjBHzOFtwLsB3rGSDQjNpSviFF15+pNyb3kQGTagmu/yFJbsQN2In4HfZt1LSVimhgfiziJcJFitRe0yyUS8z5fydTpRrs2vQsIH42zeNOSqy/IG29NtcPU/pxVVmaevWqfvVcNntOZ4/L9EqT99nsIxTYbwh5g8rDLKgXNGEcIDjKlx3/ex6VrXCoTY97oYVV6j7IHSiqpZeBkj73wjDfis402t502zcULbOSDIQHVaRI6ixKKv3u610hW9CcsKfSAy0Vq/uuI0/nvClAKqSR5MuDQZIhM8A5hrZV5QGYZtUXsEwaeG7L7bn+vuentepfBL7bnazS1IFnccM/66OlVcWXoyVQOM1tmwn5JzIv6xQYtzL7bnhT6SdpU5nS7HT2GXG+Z7W0pjD1ShHkHc6VzvnefLIxFb0F6pIRngM09toSsipwaK263afq9KKpwiK7gyNs1PdpmDZkmN93G1ygS/aHpEDCDfKtq+r3WKvO12jiVlOAvm5muBxYIoIFrZbWl/yQ=
+  app: vast-scrubland-34062
+  on:
+    repo: johncouldbe/blog-app
