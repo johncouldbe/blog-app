@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const {PORT, DATABASE_URL} = require('./config');
+const { PORT, DATABASE_URL } = require('./config');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -9,33 +9,39 @@ mongoose.Promise = global.Promise;
 const blogRouter = require('./blog-router');
 
 app.use('/blog-posts', blogRouter);
-app.use('*', function(req, res){
-  res.status(404).json({message: "Not Found"});
+app.use('*', function(req, res) {
+  res.status(404).json({
+    message: "Not Found"
+  });
 });
 
 let server;
 
-function runServer(databaseUrl=DATABASE_URL, port=PORT){
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
   return new Promise((resolve, reject) => {
+
     mongoose.connect(databaseUrl, err => {
-      if (err){
+      if (err) {
         return reject(err);
       }
 
       server = app.listen(port, () => {
         console.log(`You're listening on port ${port}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
       });
-
-      resolve();
     });
   });
 }
 
-function closeServer(){
+function closeServer() {
   mongoose.disconnect().then(() => {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       server.close(err => {
-        if(err){
+        if (err) {
           reject(err);
         }
         resolve();
@@ -44,6 +50,8 @@ function closeServer(){
   });
 }
 
-if(require.main === module){
+if (require.main === module) {
   runServer().catch(err => console.log(err));
 }
+
+module.exports = { app, runServer, closeServer };
